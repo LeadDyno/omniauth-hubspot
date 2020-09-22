@@ -28,6 +28,11 @@ module OmniAuth
         @raw_info ||= access_token.get("https://api.hubapi.com/oauth/v1/access-tokens/#{access_token.token}").parsed
       end
 
+      # hubspot doesnt like it when the query params are also passed because it breaks redirect url matching
+      def callback_url
+        full_host + script_name + callback_path
+      end
+
     end
   end
 end
